@@ -991,15 +991,126 @@
     // вывод объекта в виде строки (x,y)
     echo "{$obj1}";
 
+    echo '<br><br>';
 
     // Наследование и перегрузка методов
+    // родительский класс
+    class Animal
+    {
+        protected $legs = 4;
+        // public - доступен вне класса, private - не доступен вне класса, protected - доступен при наследовании внутри классов!
+        public function info()
+        {
+            echo "У меня {$this->legs} лапы<br>";
+        }
+        // final - нельзя переопределить метод!
+        final public function info1()
+        {
+            echo "Люблю кушать";
+        }
+    }
+
+    // наследующий класс
+    class Dog extends Animal
+    {
+        public $name = "Собака";
+
+        public function voice()
+        {
+            echo "{$this->name} - гав!<br>";
+        }
+    }
+    // наследующий класс
+    class Cat extends Animal
+    {
+        public $name = "Кошка";
+
+        public function voice()
+        {
+            echo "{$this->name} - мяу!<br>";
+        }
+        // перегрузка (переопределение метода info)
+        public function info()
+        {
+            echo "Я - {$this->name} и у меня {$this->legs} лапы<br>";
+        }
+        // не переопределенный метод родителя Animal
+        public function parentInfo()
+        {
+            parent::info();
+        }
+    }
+
+    // $animals = new Animal();
+    // $animals->info();
+
+    $dog = new Dog();
+    $dog->info();
+    $dog->voice();
+
+    echo '<br><br>';
+
+    $cat = new Cat();
+    $cat->info();
+    $cat->voice();
+    $cat->parentInfo();
+
+    echo '<br><br>';
 
 
+    // Abstract и final классы
+    // abstract - не можем от такого класса получать объекты, но можем от него наследовать
+    // абстрактный родительский класс
+    abstract class Animals
+    {
+        protected $legs = 4;
+        public function info()
+        {
+            echo "У меня {$this->legs} крохотных лапки<br>";
+        }
+        // абстрактный метод класса (только внутри абстрактного! класса)
+        // в наследующих классах этот метод должен быть обязательно определен!
+        abstract public function color();
+    }
 
+    // наследующий класс
+    class Mause extends Animals
+    {
+        public $name = "Мышь";
 
+        public function voice()
+        {
+            echo "{$this->name} - пипипи!<br>";
+        }
+        // перегрузка метода color
+        public function color()
+        {
+            echo "Я серого цвета<br>";
+        }
+    }
+
+    $mause = new Mause();
+    $mause->voice();
+    $mause->info();
+    $mause->color();
+
+    //final- делает класс, у которого не может быть наследующих классов
+    final class King
+    {
+        public function info()
+        {
+            echo "У меня нет наследников<br>";
+        }
+    }
+
+    // чтобы узнать принадлежность класса
+    if ($mause instanceof Animals) {
+        echo "mause является экземпляром класса Animals <br>";
+    }
+    if ($mause instanceof Mause) {
+        echo "mause является экземпляром класса Mause  <br>";
+    }
     ?>
-
-
 
 </body>
 
