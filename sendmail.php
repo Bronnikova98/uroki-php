@@ -15,7 +15,7 @@ if ($_POST['subject'] == 1) {
     $subject = 'Вопрос по уроку';
 }
 
-$to = "bronnikowawika@gmail.com";
+$to = "111@gmail.com";
 $from = trim($_POST['email']);
 
 // обработка сообщения от пользователя
